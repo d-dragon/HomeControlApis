@@ -1,0 +1,8 @@
+# Visual Studio Code
+.vscode
+.vs
+*-workspace
+
+# Project build output
+src/apis/Device.API/bin/
+src/apis/Device.API/obj/
