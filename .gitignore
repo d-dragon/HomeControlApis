@@ -6,3 +6,5 @@
 # Project build output
 src/apis/Device.API/bin/
 src/apis/Device.API/obj/
+tests/UnitTests/Device.API.Tests/bin
+tests/UnitTests/Device.API.Tests/obj
