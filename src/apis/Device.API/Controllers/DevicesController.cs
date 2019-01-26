@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Device.API.Models;
 
 namespace Device.API.Controllers
 {
@@ -10,11 +12,17 @@ namespace Device.API.Controllers
     [ApiController]
     public class Devices : ControllerBase
     {
+        private readonly DeviceContext _context;
+
+        public Devices(DeviceContext context)
+        {
+            _context = context;
+        }
         // GET api/devices
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult<IEnumerable<SmartDevice>>> GetDeviceList()
         {
-            return new string[] { "LightBulb", "Switch" };
+            return await _context.Devices.ToListAsync();
         }
 
         // GET api/devices/5
