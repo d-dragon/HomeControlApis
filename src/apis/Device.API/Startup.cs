@@ -33,8 +33,10 @@ namespace Device.API
             services.AddDbContext<DeviceContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Local")));
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c => {
-                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "HomeControl API", Version = "v1"});
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "LiGa API", Version = "v1"});
             });
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,10 +58,15 @@ namespace Device.API
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "HomeControl API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "LiGa API V1");
                 c.RoutePrefix = string.Empty;
             });
-            app.UseHttpsRedirection();
+            app.UseCors(options =>
+                options.WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
+         //   app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

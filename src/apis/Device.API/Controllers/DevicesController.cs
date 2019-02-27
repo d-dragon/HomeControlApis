@@ -34,8 +34,12 @@ namespace Device.API.Controllers
 
         // POST api/devices
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<SmartDevice>> PostDevice(SmartDevice device)
         {
+            _context.Devices.Add(device);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("Get Device", new { id = device.DeviceId}, device);
         }
 
         // PUT api/devices/5
