@@ -39,7 +39,7 @@ namespace Device.API.Controllers
             _context.Devices.Add(device);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("Get Device", new { id = device.DeviceId}, device);
+            return CreatedAtAction(nameof (Get), new { id = device.DeviceId}, device);
         }
 
         // PUT api/devices/5
@@ -50,8 +50,16 @@ namespace Device.API.Controllers
 
         // DELETE api/devices/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> DeleteDevice(int id)
         {
+            SmartDevice device = await _context.Devices.FindAsync(id);
+            if (device == null)
+            {
+                return NotFound();
+            }
+            _context.Devices.Remove(device);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
     }
 }
