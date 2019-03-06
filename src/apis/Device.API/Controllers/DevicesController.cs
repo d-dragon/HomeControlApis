@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Device.API.Models;
+using Device.API.Repositories;
 
 namespace Device.API.Controllers
 {
@@ -46,6 +47,14 @@ namespace Device.API.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+        }
+
+        // GET api/devices/5/name
+        [HttpGet("{id}/name")]
+        public ActionResult<string> GetName(int id)
+        {
+            ISensorRepository sensor = new SQLRepository(_context);
+            return sensor.GetSensorName(id);
         }
 
         // DELETE api/devices/5

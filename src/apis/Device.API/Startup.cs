@@ -62,11 +62,11 @@ namespace Device.API
                 c.RoutePrefix = string.Empty;
             });
             app.UseCors(options =>
-                options.WithOrigins("http://localhost:4200")
+                options.WithOrigins(new string[] {"http://localhost:4200", "https://localhost:5001"})
                 .AllowAnyMethod()
                 .AllowAnyHeader()
             );
-         //   app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
